@@ -38,9 +38,11 @@
     $user=$_POST['kor_ime'];
 	$pass=$_POST['lozinka'];
     
+    
 	if(preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $pass)) { 
         echo "ispravna lozinka, ";
-        $sql="INSERT INTO users (id,ime,prezime,username,lozinka,contact) VALUES('','".$ime."','".$prez."','".$user."','".$pass."','')";
+        $hash = password_hash($pass, PASSWORD_DEFAULT);
+        $sql="INSERT INTO users (ime,prezime,username,lozinka) VALUES('$ime','$prez','$user','$hash')";
         $result=mysqli_query($con,$sql);
         echo "Uspješna registracija <br><a href='login.html'>Klikni ovdje da se prijaviš sa svojim računom!</a></h2>";}
        	

@@ -16,29 +16,32 @@
     }
 	
 	
-	  $kor_ime = $_POST['kor_ime'];
+	   $kor_ime = $_POST['username'];
       $password = $_POST['lozinka']; 
       
-      $sql = "SELECT id FROM users WHERE username = '$kor_ime' and lozinka = '$password'";
+      $sql = "SELECT id, lozinka FROM users WHERE username = '$kor_ime'";
 	  
       $result = mysqli_query($db,$sql);
       
-      
       $count = mysqli_num_rows($result);
       
-      // If result matched $myusername and $mypassword, table row must be 1 row
 		
       if($count == 1) {
-        
-         $_SESSION["kor_ime"] = $kor_ime;
+         if ($row = mysqli_fetch_assoc($result)) {
+            $hash = $row["lozinka"];
+            $verify = password_verify($password, $hash);
          
-         header("location: index.php");
-      }else {
-         $error = "Your Login Name or Password is invalid";
-		 
-		 echo $error;
-		 header("location: login.html");
+         if ($verify) {
+            $_SESSION["username"]=$kor_ime;
+            header('location:index.php');
+         }}
       }
+      else{
+         $error="Pogrešno korisničko ime ili lozinka, pokušaj ponovo<br>";
+         echo $error;
+         echo "Niste registrirani? <a href='register.html'>Klikni za registraciju</a>";
+    }
+      
 	
 
 ?>

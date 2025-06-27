@@ -54,7 +54,7 @@ session_start();
 
 
 
-if(!isset($_SESSION['kor_ime'])){
+if(!isset($_SESSION['username'])){
 
 header("location:login.html");
 }
@@ -97,7 +97,7 @@ if($trenutnosec<$narudzbasec && $dani<5 && $day!="Sunday" && ($now >= $begintime
 
 
 
-    $kor_ime= $_SESSION['kor_ime'];
+    $kor_ime= $_SESSION['username'];
     $sql= "SELECT id FROM `users` WHERE username LIKE '%$kor_ime'";
     
     
