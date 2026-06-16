@@ -39,14 +39,14 @@
 	$pass=$_POST['lozinka'];
     
     
-	if(preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $pass)) { 
+	if(preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,16}$/', $pass)) { 
         echo "ispravna lozinka, ";
         $hash = password_hash($pass, PASSWORD_DEFAULT);
         $sql="INSERT INTO users (ime,prezime,username,lozinka) VALUES('$ime','$prez','$user','$hash')";
         $result=mysqli_query($con,$sql);
         echo "Uspješna registracija <br><a href='login.html'>Klikni ovdje da se prijaviš sa svojim računom!</a></h2>";}
        	
-        else echo("Neispravna lozinka, mora sadržavati znakove i broj te između 8 i 12 znakova!  Nije uspješna registracija <br><a href='signup.html'>Klikni ovdje da se registriraš ponovno!</h2></a>");
+        else echo("Neispravna lozinka, mora sadržavati znakove i broj te između 8 i 16 znakova!  Nije uspješna registracija <br><a href='signup.html'>Klikni ovdje da se registriraš ponovno!</h2></a>");
 	 
 	
   
