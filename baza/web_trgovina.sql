@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2021 at 05:52 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- Generation Time: Jun 16, 2026 at 03:52 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `brands` (
   `brand_id` int(11) NOT NULL,
-  `brand_name` varchar(50) COLLATE cp1250_croatian_ci NOT NULL,
-  `country` varchar(50) COLLATE cp1250_croatian_ci NOT NULL,
-  `year_of_manufacture` varchar(50) COLLATE cp1250_croatian_ci NOT NULL
+  `brand_name` varchar(50) NOT NULL,
+  `country` varchar(50) NOT NULL,
+  `year_of_manufacture` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1250 COLLATE=cp1250_croatian_ci;
 
 --
@@ -54,12 +54,19 @@ CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `date_of_order` date NOT NULL,
-  `model` varchar(30) COLLATE cp1250_croatian_ci NOT NULL,
+  `model` varchar(30) NOT NULL,
   `quantity` int(30) NOT NULL,
-  `paying` varchar(50) COLLATE cp1250_croatian_ci NOT NULL,
+  `paying` varchar(50) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `total_price` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1250 COLLATE=cp1250_croatian_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `product_id`, `date_of_order`, `model`, `quantity`, `paying`, `customer_id`, `total_price`) VALUES
+(50, 1, '2026-06-17', 'Galaxy S20 Ultra', 1, 'visa', 5, 1380);
 
 -- --------------------------------------------------------
 
@@ -69,13 +76,13 @@ CREATE TABLE `orders` (
 
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
-  `model` varchar(30) COLLATE cp1250_croatian_ci NOT NULL,
+  `model` varchar(30) NOT NULL,
   `brand_id` int(11) DEFAULT NULL,
   `year_of_manufacture` date NOT NULL,
   `price` int(50) NOT NULL,
   `RAM` int(50) NOT NULL,
   `storage` int(50) NOT NULL,
-  `processor` varchar(50) COLLATE cp1250_croatian_ci NOT NULL,
+  `processor` varchar(50) NOT NULL,
   `camera_mp` int(50) NOT NULL,
   `guarantee` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1250 COLLATE=cp1250_croatian_ci;
@@ -106,10 +113,10 @@ INSERT INTO `products` (`product_id`, `model`, `brand_id`, `year_of_manufacture`
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `ime` varchar(30) COLLATE cp1250_croatian_ci NOT NULL,
-  `prezime` varchar(30) COLLATE cp1250_croatian_ci NOT NULL,
-  `username` varchar(30) COLLATE cp1250_croatian_ci NOT NULL,
-  `lozinka` varchar(30) COLLATE cp1250_croatian_ci NOT NULL
+  `ime` varchar(30) NOT NULL,
+  `prezime` varchar(30) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `lozinka` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=cp1250 COLLATE=cp1250_croatian_ci;
 
 --
@@ -119,7 +126,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `ime`, `prezime`, `username`, `lozinka`) VALUES
 (1, 'mario', 'maglica', 'mario97', 'cincar'),
 (2, 'ivan', 'matic', 'ivan98', 'vlasic'),
-(3, 'luka', 'kordic', 'luigi99', 'cvrsnica');
+(3, 'luka', 'kordic', 'luigi99', 'cvrsnica'),
+(5, 'mario', 'mario', 'mario', '$2y$10$H1bu4E3aNtwMYukGY7IEHO9R6HoJJIhGfTCCqrxKnb8OSAnjvRbdK');
 
 --
 -- Indexes for dumped tables
@@ -168,7 +176,7 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -180,7 +188,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
